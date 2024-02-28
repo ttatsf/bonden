@@ -1,6 +1,6 @@
 // data:
 
-const PREFIX = "https://github.com/ttatsf/bonden/tree/main/media/mp3s/akita";
+const PREFIX = "https://ttatsf.github.io/bonden/media/mp3s/akita";
 const SUFFIX = ".wav.mp3";
 const SONGS = [
   { title: "三吉節（秋田市）", name: "23-5" },
