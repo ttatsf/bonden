@@ -1,6 +1,6 @@
 // data:
 
-const PREFIX = "Media/mp3s/akita";
+const PREFIX = "./Media/mp3s/akita";
 const SUFFIX = ".wav.mp3";
 const SONGS = [
   { title: "三吉節（秋田市）", name: "23-5" },
