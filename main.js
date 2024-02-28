@@ -63,7 +63,8 @@ const stop = (i) => {
 };
 
 const play = (i) => {
-  document.getElementById(`a${i}`).play();
+  const b = document.getElementById(`a${i}`)
+  b.play();
   return sendMsg([Started, i]);
 };
 
@@ -88,6 +89,7 @@ const putAudios = (parent) => (prefix) => (songs) => (suffix) =>
     const a = new Audio(`${prefix}${e.name}${suffix}`);
     a.className = "audio";
     a.id = `a${i}`;
+    a.type = "audio/mp3";
     a.onended = () => sendMsg([Ended, undefined]);
     return parent.appendChild(a);
   });
