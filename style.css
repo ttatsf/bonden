@@ -15,10 +15,10 @@ body {
 .buttons {
 /*     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); */
-/*     display: flex;
+    display: flex;
     flex-direction: column;
-    flex-wrap: wrap; */
-    flex-flow: column wrap;
+    flex-wrap: wrap;
+/*     flex-flow: column wrap; */
 /*     height: 320px; */
     height: 480px;
     margin-bottom: 20px;
