@@ -14,7 +14,9 @@ body {
 
 .buttons {
     display: flex;
-    flex-flow: column wrap;
+    flex-direction: column;
+    flex-wrap: wrap;
+/*     flex-flow: column wrap; */
 /*     height: 320px; */
     margin-bottom: 20px;
     background-color: #1d2b53;
