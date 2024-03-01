@@ -23,10 +23,12 @@ const SONGS = [
 ];
 
 // model:
+const Playing = Symbol("playing");
+const Stopping = Symbol("stopping");
 
 const init = {
+  state: Stopping,
   index: undefined,
-  isplaying: false,
 };
 
 // update: Msg -> Model -> Model
@@ -43,18 +45,19 @@ const update =
     msg === Ended
       ? stop(model.index)
       : msg === Clicked
-        ? !model.isplaying
+        ? model.state === Stopping
           ? play(i)
           : model.index === i
             ? stop(model.index)
             : (stop(model.index), play(i))
         : msg === Started
-          ? { ...model, index: i, isplaying: true }
+          ? { ...model, state: Playing, index: i }
           : msg === Stopped
-            ? { ...model, isplaying: false }
+            ? { ...model, state: Stopping }
             : model;
 
 // Cmd: a -> Model
+
 const stop = (i) => {
   const a = document.getElementById(`a${i}`);
   a.pause();
@@ -63,12 +66,13 @@ const stop = (i) => {
 };
 
 const play = (i) => {
-  const b = document.getElementById(`a${i}`)
+  const b = document.getElementById(`a${i}`);
   b.play();
   return sendMsg([Started, i]);
 };
 
 // view-functions:
+
 const putButtonsNAudios = (parent) => (prefix) => (songs) => (suffix) => [
   putButtons(parent)(songs),
   putAudios(parent)(prefix)(songs)(suffix),
@@ -96,9 +100,15 @@ const putAudios = (parent) => (prefix) => (songs) => (suffix) =>
 
 // view-construction:
 
+const _appDiv = document.createElement("div");
+_appDiv.className = "app";
+const appDiv = document.body.appendChild(_appDiv);
+
+appDiv.insertAdjacentHTML("beforeend", "<h1>梵天歌を聴いてみよう</h1>");
+
 const _baseDiv = document.createElement("div");
 _baseDiv.className = "buttons";
-const baseDiv = document.body.appendChild(_baseDiv);
+const baseDiv = appDiv.appendChild(_baseDiv);
 /*const [BUTTONS, AUDIOS] = */
 putButtonsNAudios(baseDiv)(PREFIX)(SONGS)(SUFFIX);
 
@@ -106,9 +116,8 @@ putButtonsNAudios(baseDiv)(PREFIX)(SONGS)(SUFFIX);
 
 const view = (model) => {
   if (model.index !== undefined) {
-    document.getElementById(`b${model.index}`).className = model.isplaying
-      ? "button playing"
-      : "button";
+    document.getElementById(`b${model.index}`).className =
+      model.state === Playing ? "button playing" : "button";
   }
 };
 
